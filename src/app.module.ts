@@ -6,8 +6,12 @@ import * as Joi from 'joi';
 import { JwtMiddleware } from './jwt/jwt.middleware';
 import { JwtModule } from './jwt/jwt.module';
 import { User } from './users/entities/user.entity';
-import { Verification } from './users/entities/verification.entity';
+import { Auth } from './users/entities/auth.entity';
 import { UsersModule } from './users/users.module';
+import { ConsultsModule } from './consults/consults.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { AdminModule } from './admin/admin.module';
+import { Consult } from './consults/entities/consult.entity';
 
 @Module({
   imports: [
@@ -36,7 +40,7 @@ import { UsersModule } from './users/users.module';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: process.env.NODE_ENV !== 'prod',
-      entities: [User,Verification], // db 들어가는 곳 
+      entities: [User,Auth, Consult], // db 들어가는 곳 
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
@@ -47,6 +51,9 @@ import { UsersModule } from './users/users.module';
     }),
     UsersModule,
     AppModule,
+    ConsultsModule,
+    RoomsModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],

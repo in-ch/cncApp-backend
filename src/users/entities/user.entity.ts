@@ -10,58 +10,19 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
 import { IsBoolean, IsEmail, IsEnum, IsString } from 'class-validator';
 
-export enum UserRole {
-  Client = 'Client',
-  Owner = 'Owner',
-  Delivery = 'Delivery',
-}
 
-registerEnumType(UserRole, { name: 'UserRole' });
 
 @InputType("UserInputType",{ isAbstract: true })
 @ObjectType()
 @Entity()
 export class User extends CoreEntity {
+
   @Column()
   @Field(type => String)
-  @IsEmail()
-  email: string;
+  name: string;
 
   @Column({ select: false })
   @IsString()
   @Field(type => String)
-  password: string;
-
-  @Column({ type: 'enum', enum: UserRole })
-  @Field(type => UserRole)
-  @IsEnum(UserRole)
-  role: UserRole;
-
-  @Column({ default: false })
-  @IsBoolean()
-  @Field(type => Boolean)
-  verified: boolean;
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashPassword(): Promise<void> {
-    if (this.password) {
-      try {
-        this.password = await bcrypt.hash(this.password, 10);
-      } catch (e) {
-        console.log(e);
-        throw new InternalServerErrorException();
-      }
-    }
-  }
-
-  async checkPassword(aPassword: string): Promise<boolean> {
-    try {
-      const ok = await bcrypt.compare(aPassword, this.password);
-      return ok;
-    } catch (e) {
-      console.log(e);
-      throw new InternalServerErrorException();
-    }
-  }
+  phone: string;
 }

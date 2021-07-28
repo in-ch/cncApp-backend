@@ -5,7 +5,7 @@ import { User } from '../entities/user.entity';
 @ObjectType()
 export class EditProfileOutput extends MutationOutput {}
 
-@InputType()
-export class EditProfileInput extends PartialType(
-    PickType(User, ["email","password"]) 
-){}
+// @InputType()
+// export class EditProfileInput extends PartialType(
+//     PickType(User, ["email","password"]) 
+// ){}
