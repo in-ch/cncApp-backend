@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { JwtService } from 'src/jwt/jwt.service';
 import { Auth } from './entities/auth.entity';
 import { CreateAccountInput } from './dtos/create-account.dto';
+import { LoginInput } from './dtos/login.dto';
 
 
 @Injectable()
@@ -35,42 +36,35 @@ export class UserService {
     }
   }
 
-  // async login({
-  //   email,
-  //   password,
-  // }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
-  //   // make a JWT and give it to the user
-  //   try {
-  //     const user = await this.users.findOne(
-  //       { email },
-  //       { select: ['id','password'] },
-  //     );
-  //     if (!user) {
-  //       return {
-  //         ok: false,
-  //         error: 'User not found',
-  //       };
-  //     }
-  //     const passwordCorrect = await user.checkPassword(password);
-  //     if (!passwordCorrect) {
-  //       return {
-  //         ok: false,
-  //         error: 'Wrong password',
-  //       };
-  //     }
-  //     // const token = jwt.sign({ id: user.id }, this.config.get('SECRET_KEY'));
-  //     const token = this.jwtService.sign(user.id);
-  //     return {
-  //       ok: true,
-  //       token,
-  //     };
-  //   } catch (error) {
-  //     return {
-  //       ok: false,
-  //       error,
-  //     };
-  //   }
-  // }
+  async login({
+    name,
+    phone
+  }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
+    
+    const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
+    
+    try {
+      const user = await this.users.findOne(
+        { phone : convertPhone }
+      );
+      if (!user) {
+        return {
+          ok: false,
+          error: '유저가 존재하지 않습니다.',
+        };
+      }
+      const token = this.jwtService.sign(user.phone);
+      return {
+        ok: true,
+        token,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error,
+      };
+    }
+  }
 
   // async findById(id:number):Promise<User>{
   //   return this.users.findOne({id});
