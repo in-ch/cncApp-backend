@@ -8,7 +8,7 @@ import {
 export class CoreEntity {
   @PrimaryGeneratedColumn()
   @Field(type => Number)
-  id: number;
+  no: number;
 
   @CreateDateColumn()
   @Field(type => Date)

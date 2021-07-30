@@ -8,7 +8,9 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
-import { IsBoolean, IsEmail, IsEnum, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsNumber, IsString } from 'class-validator';
+import { Rooms } from 'src/rooms/entity/rooms.entity';
+import { Consult } from 'src/consults/entities/consult.entity';
 
 
 
@@ -25,4 +27,14 @@ export class User extends CoreEntity {
   @IsString()
   @Field(type => String)
   phone: string;
+
+
+  @OneToMany(_=> Consult, consult=>consult.user)
+  @Field(_ => [Consult])
+  consult: Consult[];
+  
+  @OneToMany(_=> Rooms, rooms=>rooms.user)
+  @Field(_ => [Rooms])
+  rooms: Rooms[];
+
 }
