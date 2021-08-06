@@ -8,29 +8,31 @@ import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.d
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 
 const pubSub = new PubSub();
-@Resolver(of => User)
+@Resolver(_ => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
   
   @Query(_ => String)
-  Hello():void {
-    console.log("Hello");
-  } 
 
   @Mutation(_ => LoginOutput)
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
     const loginResult = await this.usersService.login(loginInput);
-
     pubSub.publish('userAdded',{ userAdded: loginResult });
 
     return loginResult;
   }
 
+  @Mutation(_ => CreateAccountOutput)
+  async createAccount(
+    @Args('input') createAccountInput: CreateAccountInput,
+  ): Promise<CreateAccountOutput> {
+      return await this.usersService.createAccount(createAccountInput);
+  }
+  
   @Subscription(()=>LoginOutput)
   userAdded() {
     return pubSub.asyncIterator('userAdded');
   }
-  
 }
   
   
