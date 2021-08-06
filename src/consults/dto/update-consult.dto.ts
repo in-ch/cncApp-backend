@@ -1,9 +1,9 @@
-import { Field, InputType, ObjectType, PickType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType, PartialType, PickType } from '@nestjs/graphql';
 import { MutationOutput } from 'src/common/dtos/output.dto';
 import { Consult } from '../entities/consult.entity';
 
 @InputType()
-export class RequestConsultInput extends PickType(Consult, [
+export class UpdateConsultInput extends PartialType(PickType(Consult, [
     'title',
     'address',
     'history',
@@ -27,7 +27,8 @@ export class RequestConsultInput extends PickType(Consult, [
     'employment',
     'isPaid',
     'status',
-]) {}
+])
+ ) {}
 
 @ObjectType()
-export class RequestConsultOutput extends MutationOutput {}
+export class UpdateConsultOutput extends MutationOutput {}
