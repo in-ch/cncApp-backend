@@ -45,7 +45,15 @@ import { Rooms } from './rooms/entity/rooms.entity';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
-      context: ({ req }) => ({user: req['user']}),  // 모든 resolver에 공유하도록 할 수 있음
+      installSubscriptionHandlers: true,  // subscription을 사용하기 위해서는 true로 바꿔야 함 default는 false
+      context: ({ req, connection }) => {  // subscription에서 http headers를 이용한 기능을 수행하기 위해.
+        if(req) {
+          return {user: req['user']};
+        } else {
+          return {user: connection['user']};
+        }
+      }
+      // ({user: req['user']}),  // 모든 resolver에 공유하도록 할 수 있음
     }),
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
