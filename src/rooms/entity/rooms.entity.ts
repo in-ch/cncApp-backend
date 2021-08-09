@@ -28,10 +28,15 @@ import { Consult } from 'src/consults/entities/consult.entity';
 
     @ManyToOne(_ => User, user => user.rooms ,{ onDelete: 'CASCADE' })
     @JoinColumn()
-    user: User;
+    user: User;   // 보낸 유저
+
+    @ManyToOne(_ => User, user => user.rooms ,{ onDelete: 'CASCADE' })
+    @JoinColumn()
+    to: User;   // 수신자
+
 
     @ManyToOne(_ => Consult, consult => consult.rooms , { onDelete: 'CASCADE'})
     @JoinColumn()
-    consult : Consult;
+    consult : Consult;  // 컨설팅 아이디
   }
   
