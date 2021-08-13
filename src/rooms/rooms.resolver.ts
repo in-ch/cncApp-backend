@@ -7,8 +7,6 @@ import {RoomsService} from './rooms.services';
 @Resolver(_ => Rooms)
 export class RoomsResolver {
   constructor(private readonly roomsService: RoomsService) {}
-  
-  @Query(_ => String)
 
   @Mutation(_ => CreateRoomOutput)
   async createRoom(@Args('input') createRoomInput: CreateRoomInput): Promise<CreateRoomOutput> {

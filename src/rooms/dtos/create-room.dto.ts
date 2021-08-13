@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType, PickType } from '@nestjs/graphql';
+import { Field, InputType, Int, ObjectType, PickType } from '@nestjs/graphql';
 import { MutationOutput } from 'src/common/dtos/output.dto';
 import { Rooms } from '../entities/rooms.entity';
 
@@ -6,10 +6,16 @@ import { Rooms } from '../entities/rooms.entity';
 export class CreateRoomInput extends PickType(Rooms, [
   'message',
   'isAdmin',
-  // 'user',
+  // 'user', // token으로 알면 됨
   // 'consult',
   // 'to',
-]) {}
+]) {
+  @Field(_ => Int)
+  toUserId: number;
+
+  @Field(_ => Int)
+  consultId: number;
+}
 
 @ObjectType()
 export class CreateRoomOutput extends MutationOutput {}

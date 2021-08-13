@@ -3,18 +3,35 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Rooms } from './entities/rooms.entity';
 import { CreateRoomInput } from './dtos/create-room.dto';
+import { User } from 'src/users/entities/user.entity';
+import { Consult } from 'src/consults/entities/consult.entity';
 
 
 @Injectable()
 export class RoomsService {
   constructor(
     @InjectRepository(Rooms) private readonly rooms: Repository<Rooms>,
+    @InjectRepository(User) private readonly users: Repository<User>,
+    @InjectRepository(Consult) private readonly consults: Repository<Consult>,
+    
   ) {}
 
   async createRooms(createRoomInput: CreateRoomInput): Promise<{ ok: boolean; error?: string }> {
     try {
-        const newRooms = this.rooms.create(createRoomInput);
-        await this.rooms.save(newRooms);
+      const { toUserId, message, isAdmin, consultId } = createRoomInput;
+      const userId = 1;
+      const to = await this.users.findOne(toUserId);
+      const user = await this.users.findOne(userId);
+      const consult = await this.consults.findOne(consultId);
+
+      const newRooms = this.rooms.create({
+        user,
+        to,
+        message,
+        isAdmin,
+        consult
+      });
+      await this.rooms.save(newRooms);
 
       return { ok: true };
     } catch (e) {
