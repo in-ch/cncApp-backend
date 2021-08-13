@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, Context, Subscription } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context, Subscription, Int } from '@nestjs/graphql';
 
 import { RequestConsultInput, RequestConsultOutput } from './dto/request-consult.dto';
 import { Consult } from './entities/consult.entity';
@@ -20,9 +20,16 @@ export class ConsultResolver {
 
     @Mutation(_ => UpdateConsultOutput)
     async updateConsult(
-        @Args('consultNo') consultNo: number,
+        @Args('consultNo', {type: () => Int}) consultNo: number,
         @Args('updateConsultInput') updateConsultInput: UpdateConsultInput,
     ): Promise<RequestConsultOutput> {
         return await this.consultsService.updateConsult(consultNo, updateConsultInput);
+    }
+
+    @Query(_ => [Consult])
+    async loadConsultList(
+        @Args('userNo', {type: () => Int}) userNo:number
+    ) : Promise<Consult[]> {
+        return await this.consultsService.loadConsultList(userNo);
     }
 }
