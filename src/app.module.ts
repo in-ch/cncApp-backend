@@ -12,7 +12,7 @@ import { ConsultsModule } from './consults/consults.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { AdminModule } from './admin/admin.module';
 import { Consult } from './consults/entities/consult.entity';
-import { Rooms } from './rooms/entity/rooms.entity';
+import { Rooms } from './rooms/entities/rooms.entity';
 
 @Module({
   imports: [

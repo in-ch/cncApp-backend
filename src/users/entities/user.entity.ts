@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
 import { IsBoolean, IsEmail, IsEnum, IsNumber, IsString } from 'class-validator';
-import { Rooms } from 'src/rooms/entity/rooms.entity';
+import { Rooms } from 'src/rooms/entities/rooms.entity';
 import { Consult } from 'src/consults/entities/consult.entity';
 
 

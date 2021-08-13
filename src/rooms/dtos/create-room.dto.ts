@@ -1,6 +1,6 @@
 import { Field, InputType, ObjectType, PickType } from '@nestjs/graphql';
 import { MutationOutput } from 'src/common/dtos/output.dto';
-import { Rooms } from '../entity/rooms.entity';
+import { Rooms } from '../entities/rooms.entity';
 
 @InputType()
 export class CreateRoomInput extends PickType(Rooms, [

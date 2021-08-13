@@ -8,7 +8,7 @@ import { Column, Entity,  JoinColumn,  ManyToOne,  OneToMany,  OneToOne } from '
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { User } from 'src/users/entities/user.entity';
 import { IsBoolean, IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
-import { Rooms } from 'src/rooms/entity/rooms.entity';
+import { Rooms } from 'src/rooms/entities/rooms.entity';
 
 export enum familyRole {
   Together= 'Together',   // 동거

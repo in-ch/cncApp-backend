@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
 import { CreateRoomInput, CreateRoomOutput } from './dtos/create-room.dto';
-import { Rooms } from './entity/rooms.entity';
+import { Rooms } from './entities/rooms.entity';
 import {RoomsService} from './rooms.services';
 
 @Resolver(_ => Rooms)
