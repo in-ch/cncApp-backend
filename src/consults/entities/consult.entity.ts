@@ -1,6 +1,7 @@
 import {
   Field,
   InputType,
+  Int,
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
@@ -29,7 +30,7 @@ registerEnumType(familyRole, { name: 'familyRole' });
 @Entity()
 export class Consult {
   @PrimaryGeneratedColumn()
-  @Field(_ => Number)
+  @Field(_ => Int)
   no: number;
 
   
@@ -144,7 +145,7 @@ export class Consult {
   @IsBoolean()
   isPaid: boolean;  // 결제 완료 여부 
   
-  @Field(_ => Number, { defaultValue: 0 })
+  @Field(_ => Int, { defaultValue: 0 })
   @Column()
   @IsNumber()
   status: number;    // 상태 
