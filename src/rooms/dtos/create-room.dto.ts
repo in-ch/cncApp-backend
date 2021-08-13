@@ -4,11 +4,11 @@ import { Rooms } from '../entities/rooms.entity';
 
 @InputType()
 export class CreateRoomInput extends PickType(Rooms, [
-  'text',
+  'message',
   'isAdmin',
-  'user',
-  'consult',
-  'to',
+  // 'user',
+  // 'consult',
+  // 'to',
 ]) {}
 
 @ObjectType()

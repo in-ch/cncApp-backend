@@ -11,11 +11,10 @@ export class RoomsResolver {
   @Query(_ => String)
 
   @Mutation(_ => CreateRoomOutput)
-  async login(@Args('input') createRoomInput: CreateRoomInput): Promise<CreateRoomOutput> {
+  async createRoom(@Args('input') createRoomInput: CreateRoomInput): Promise<CreateRoomOutput> {
 
     return await this.roomsService.createRooms(createRoomInput);
   }
-
 }
   
   

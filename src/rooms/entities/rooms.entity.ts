@@ -19,7 +19,7 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @Column({ select: false })
     @IsString()
     @Field(type => String)
-    text: string;
+    message: string;
 
     @Column()
     @IsBoolean()
@@ -33,7 +33,6 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @ManyToOne(_ => User, user => user.rooms ,{ onDelete: 'CASCADE' })
     @JoinColumn()
     to: User;   // 수신자
-
 
     @ManyToOne(_ => Consult, consult => consult.rooms , { onDelete: 'CASCADE'})
     @JoinColumn()
