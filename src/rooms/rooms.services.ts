@@ -38,4 +38,21 @@ export class RoomsService {
       return { ok: false, error: "채팅방 생성이 불가합니다." };
     }
   }
+  async loadRooms(userNo:number, consultNo:number): Promise<Rooms[]> {
+    try {
+      const rooms = await this.rooms.find({
+        where: {
+          user:{
+            no:userNo
+          },
+          consult: {
+            no:consultNo
+          }
+        }
+      });
+      return rooms;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

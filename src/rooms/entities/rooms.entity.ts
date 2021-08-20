@@ -16,7 +16,7 @@ import { Consult } from 'src/consults/entities/consult.entity';
   @Entity()
   export class Rooms extends CoreEntity {
 
-    @Column({ select: false })
+    @Column()
     @IsString()
     @Field(type => String)
     message: string;
