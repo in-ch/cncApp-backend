@@ -6,7 +6,6 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { Column, Entity,  JoinColumn,  ManyToOne,  OneToMany,  OneToOne } from 'typeorm';
-import { CoreEntity } from 'src/common/entities/core.entity';
 import { User } from 'src/users/entities/user.entity';
 import { IsBoolean, IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
 import { Rooms } from 'src/rooms/entities/rooms.entity';

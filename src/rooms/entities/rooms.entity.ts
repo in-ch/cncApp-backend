@@ -1,10 +1,10 @@
 import {
     Field,
     InputType,
+    Int,
     ObjectType,
   } from '@nestjs/graphql';
-  import { Column, Entity,  JoinColumn,  ManyToOne,  OneToOne } from 'typeorm';
-  import { CoreEntity } from 'src/common/entities/core.entity';
+  import { Column, CreateDateColumn, Entity,  JoinColumn,  ManyToOne,  OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
   import { User } from 'src/users/entities/user.entity';
 import { IsBoolean, IsString } from 'class-validator';
 import { Consult } from 'src/consults/entities/consult.entity';
@@ -14,7 +14,11 @@ import { Consult } from 'src/consults/entities/consult.entity';
   @InputType("RoomsInputType",{ isAbstract: true })
   @ObjectType()
   @Entity()
-  export class Rooms extends CoreEntity {
+  export class Rooms{
+
+    @PrimaryGeneratedColumn()
+    @Field(_ => Int)
+    no: number;
 
     @Column()
     @IsString()
@@ -37,5 +41,13 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @ManyToOne(_ => Consult, consult => consult.rooms , { onDelete: 'CASCADE'})
     @JoinColumn()
     consult : Consult;  // 컨설팅 아이디
+
+    @CreateDateColumn()
+    @Field(_ => Date)
+    createdAt: Date;
+    
+    @UpdateDateColumn()
+    @Field(_ => Date)
+    updatedAt: Date;
   }
   
