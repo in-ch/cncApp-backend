@@ -15,29 +15,6 @@ export class RoomsService {
     @InjectRepository(Consult) private readonly consults: Repository<Consult>,
     
   ) {}
-
-  async createRooms(createRoomInput: CreateRoomInput): Promise<{ ok: boolean; error?: string }> {
-    try {
-      const { toUserId, message, isAdmin, consultId } = createRoomInput;
-      const userId = 1;
-      const to = await this.users.findOne(toUserId);
-      const user = await this.users.findOne(userId);
-      const consult = await this.consults.findOne(consultId);
-
-      const newRooms = this.rooms.create({
-        user,
-        to,
-        message,
-        isAdmin,
-        consult
-      });
-      await this.rooms.save(newRooms);
-
-      return { ok: true };
-    } catch (e) {
-      return { ok: false, error: "채팅방 생성이 불가합니다." };
-    }
-  }
   async loadRooms(userNo:number, consultNo:number): Promise<Rooms[]> {
     try {
       const rooms = await this.rooms.find({
@@ -51,6 +28,27 @@ export class RoomsService {
         }
       });
       return rooms;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createRooms(createRoomInput: CreateRoomInput): Promise<Rooms> {
+      try {
+        const { toUserId, message, isAdmin, consultId } = createRoomInput;
+        const userId = 1;
+        const to = await this.users.findOne(toUserId);
+        const user = await this.users.findOne(userId);
+        const consult = await this.consults.findOne(consultId);
+
+        const newRooms = this.rooms.create({
+          user,
+          to,
+          message,
+          isAdmin,
+          consult
+        });
+        return this.rooms.save(newRooms); 
     } catch (error) {
       throw error;
     }

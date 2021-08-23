@@ -8,9 +8,10 @@ import {RoomsService} from './rooms.services';
 export class RoomsResolver {
   constructor(private readonly roomsService: RoomsService) {}
 
-  @Mutation(_ => CreateRoomOutput)
-  async createRoom(@Args('input') createRoomInput: CreateRoomInput): Promise<CreateRoomOutput> {
-    return await this.roomsService.createRooms(createRoomInput);
+  @Mutation(_ => Rooms)
+  // async createRoom(@Args('input') createRoomInput: CreateRoomInput): Promise<CreateRoomOutput> {
+    async createRoom(@Args('input') createRoomInput: CreateRoomInput): Promise<Rooms> {
+      return await this.roomsService.createRooms(createRoomInput);
   }
 
   @Query(_ => [Rooms])
