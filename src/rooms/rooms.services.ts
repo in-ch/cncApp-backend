@@ -5,6 +5,7 @@ import { Rooms } from './entities/rooms.entity';
 import { CreateRoomInput } from './dtos/create-room.dto';
 import { User } from 'src/users/entities/user.entity';
 import { Consult } from 'src/consults/entities/consult.entity';
+import { CreateRoomMessagePhotoInput } from './dtos/create-room-message-photo.dto';
 
 
 @Injectable()
@@ -49,6 +50,26 @@ export class RoomsService {
           consult
         });
         return this.rooms.save(newRooms); 
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createRoomMessagePhoto(createRoomMessagePhotoInput: CreateRoomMessagePhotoInput): Promise<Rooms> {
+    try{
+      const { toUserId, file, isAdmin, consultId } = createRoomMessagePhotoInput;
+      const userId = 1; 
+      const to = await this.users.findOne(toUserId);
+      const user = await this.users.findOne(userId);
+      const consult = await this.consults.findOne(consultId);
+      const newRooms = this.rooms.create({
+        user,
+        to,
+        file,
+        isAdmin,
+        consult
+      });
+      return this.rooms.save(newRooms); 
     } catch (error) {
       throw error;
     }

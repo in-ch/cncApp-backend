@@ -20,9 +20,9 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @Field(_ => Int)
     no: number;
 
-    @Column()
+    @Column({nullable: true})
     @IsString()
-    @Field(type => String)
+    @Field(_ => String, {nullable: true})
     message: string;
 
     @Column()
