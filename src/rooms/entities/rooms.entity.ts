@@ -30,6 +30,11 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @Field(_ => Boolean)
     isAdmin: boolean;
 
+    @Column({nullable: true})
+    @IsString()
+    @Field(_ => String, {nullable: true})
+    file: string;
+
     @ManyToOne(_ => User, user => user.rooms ,{ onDelete: 'CASCADE' })
     @JoinColumn()
     user: User;   // 보낸 유저

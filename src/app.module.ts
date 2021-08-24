@@ -13,6 +13,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { AdminModule } from './admin/admin.module';
 import { Consult } from './consults/entities/consult.entity';
 import { Rooms } from './rooms/entities/rooms.entity';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { Rooms } from './rooms/entities/rooms.entity';
     ConsultsModule,
     RoomsModule,
     AdminModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],

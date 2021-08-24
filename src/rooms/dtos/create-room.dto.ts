@@ -15,6 +15,8 @@ export class CreateRoomInput extends PickType(Rooms, [
 
   @Field(_ => Int)
   consultId: number;
+  // @Field(_ => File)
+  // file: File;
 }
 
 @ObjectType()
