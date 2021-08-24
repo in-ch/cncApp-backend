@@ -30,8 +30,8 @@ export class UploadsController {
               .promise();
             const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${objectName}`;
             return { url };
-          } catch (e) {
+        } catch (e) {
             return null;
-          }  
+        }  
     }
 }
