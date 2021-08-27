@@ -17,8 +17,6 @@ export class UserResolver {
   @Mutation(_ => LoginOutput)
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
     const loginResult = await this.usersService.login(loginInput);
-    pubSub.publish('userAdded',{ userAdded: loginResult });
-
     return loginResult;
   }
 
@@ -26,10 +24,12 @@ export class UserResolver {
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
   ): Promise<CreateAccountOutput> {
-      return await this.usersService.createAccount(createAccountInput);
+    const result =  await this.usersService.createAccount(createAccountInput);
+    pubSub.publish('userAdded',{ userAdded: result });
+    return result;
   }
   
-  @Subscription(()=>LoginOutput)
+  @Subscription(()=>CreateAccountOutput)
   userAdded() {
     return pubSub.asyncIterator('userAdded');
   }

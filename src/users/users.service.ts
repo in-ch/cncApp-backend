@@ -6,8 +6,9 @@ import { JwtService } from 'src/jwt/jwt.service';
 import { Auth } from './entities/auth.entity';
 import { CreateAccountInput } from './dtos/create-account.dto';
 import { LoginInput } from './dtos/login.dto';
+import { PubSub } from 'graphql-subscriptions';
 
-
+const pubSub = new PubSub();
 @Injectable()
 export class UserService {
   constructor(
@@ -40,9 +41,8 @@ export class UserService {
     name,
     phone
   }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
-    
     const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
-    
+    console.log(convertPhone);
     try {
       const user = await this.users.findOne(
         { phone : convertPhone }
