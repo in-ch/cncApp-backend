@@ -1,10 +1,11 @@
 import {
   Field,
   InputType,
+  Int,
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
@@ -18,6 +19,10 @@ import { Consult } from 'src/consults/entities/consult.entity';
 @ObjectType()
 @Entity()
 export class User extends CoreEntity {
+
+  @PrimaryGeneratedColumn()
+  @Field(_ => Int)
+  no: number;
 
   @Column()
   @Field(type => String)

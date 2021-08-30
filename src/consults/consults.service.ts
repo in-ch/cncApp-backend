@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
 import { Entity, Repository } from 'typeorm';
 import { RequestConsultInput } from './dto/request-consult.dto';
 import { UpdateConsultInput } from './dto/update-consult.dto';
@@ -9,11 +10,21 @@ import { Consult } from './entities/consult.entity';
 export class ConsultService {
   constructor(
     @InjectRepository(Consult) private readonly consults: Repository<Consult>,
+    @InjectRepository(User) private readonly users: Repository<User>,
   ) {}
 
-  async requestConsult(requestConsultInput: RequestConsultInput): Promise<{ ok: boolean; error?: string }> {
+  async requestConsult(requestConsultInput: RequestConsultInput, userNo: number): Promise<{ ok: boolean; error?: string }> {
     try {
-        const newConsult = this.consults.create(requestConsultInput);
+        const newConsult = this.consults.create(
+          requestConsultInput,
+        );
+        const Writer = await this.users.findOne({
+          where:{
+            no:userNo,
+          }
+        });
+        newConsult.user = Writer;
+        
         await this.consults.save(newConsult);
         return {
             ok:true
@@ -29,7 +40,6 @@ export class ConsultService {
   async updateConsult(no: number,updateConsultInput: UpdateConsultInput): Promise<{ ok: boolean; error?: string}> {
     try{
       const Consult = await this.consults.findOne({no}); // consultNo 값을 통해 Consult를 불러온다. 
-      console.log(Consult);
 
       if(updateConsultInput.Guaranteed){
         Consult.Guaranteed = updateConsultInput.Guaranteed;
@@ -64,9 +74,6 @@ export class ConsultService {
       if(updateConsultInput.marriedStatus) {
         Consult.marriedStatus = updateConsultInput.marriedStatus;
       }
-      if(updateConsultInput.monthlyIncome){
-        Consult.monthlyIncome = updateConsultInput.monthlyIncome;
-      }
       if(updateConsultInput.motherStatus){
         Consult.motherStatus = updateConsultInput.motherStatus;
       }
@@ -91,6 +98,8 @@ export class ConsultService {
       if(updateConsultInput.villaResidential){
         Consult.villaResidential = updateConsultInput.villaResidential;
       }
+
+      
       this.consults.save(Consult);
       return {
         ok: true

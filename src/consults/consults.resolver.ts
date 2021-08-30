@@ -14,8 +14,9 @@ export class ConsultResolver {
     @Mutation(_ => RequestConsultOutput)
     async requestConsult(
         @Args('input') requestConsultInput: RequestConsultInput,
+        @Args('userNo', {type: () => Int}) userNo: number,
     ): Promise<RequestConsultOutput> {
-        return await this.consultsService.requestConsult(requestConsultInput);
+        return await this.consultsService.requestConsult(requestConsultInput, userNo);
     }
 
     @Mutation(_ => UpdateConsultOutput)

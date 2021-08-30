@@ -16,9 +16,9 @@ import {
 } from 'typeorm';
 
 export enum familyRole {
-  Together= 'Together',   // 동거
-  Disabled = 'Disabled',  // 장애
-  Dieased = 'Dieased',    // 질병 
+  동거= '동거',   // 동거
+  장애 = '장애',  // 장애
+  질병 = '질병',    // 질병 
 }
 
 registerEnumType(familyRole, { name: 'familyRole' });
@@ -48,46 +48,35 @@ export class Consult {
   @Field(_ => String)
   history: string; // 상담 이력
   
-  @Column()
-  @IsString()
-  @Field(_ => String)
-  method: string; // 상담 방법 
-  
   @Column({nullable: true})
   // @IsString()
   @Field(_ => String, {nullable: true})
   acquisitionPath?: string; // 유입 경로 
   
-  @Column({ type: 'enum', enum: familyRole, nullable: true })
-  @Field(type => familyRole,{nullable: true})
-  // @IsEnum(familyRole)
-  fatherStatus: familyRole;     // 부의 가족사항
+  @Column({ nullable: true })
+  @Field(type => String,{nullable: true})
+  fatherStatus: string;     // 부의 가족사항
   
   
-  @Column({ type: 'enum', enum: familyRole, nullable: true})
-  @Field(type => familyRole, {nullable: true})
-  // @IsEnum(familyRole)
-  motherStatus: familyRole;     // 모의 가족 사항   
+  @Column({ nullable: true})
+  @Field(type => String, {nullable: true})
+  motherStatus: string;     // 모의 가족 사항   
   
-  @Column({ type: 'enum', enum: familyRole,nullable: true })
-  @Field(type => familyRole, {nullable: true})
-  // @IsEnum(familyRole)
-  sibilingsStatus: familyRole;     // 형제 가족 사항  
+  @Column({nullable: true })
+  @Field(type => String, {nullable: true})
+  sibilingsStatus: string;     // 형제 가족 사항  
   
-  @Column({ type: 'enum', enum: familyRole,nullable: true })
-  @Field(type => familyRole, {nullable: true})
-  // @IsEnum(familyRole)
-  sistersStatus: familyRole;     // 자매 가족 사항 
+  @Column({nullable: true })
+  @Field(type => String, {nullable: true})
+  sistersStatus: string;     // 자매 가족 사항 
   
-  @Column({ type: 'enum', enum: familyRole, nullable: true })
-  @Field(type => familyRole, {nullable: true})
-  // @IsEnum(familyRole)
-  sonStatus: familyRole;     // 아들 가족 사항
+  @Column({ nullable: true })
+  @Field(type => String, {nullable: true})
+  sonStatus: string;     // 아들 가족 사항
   
-  @Column({ type: 'enum', enum: familyRole, nullable: true })
-  @Field(type => familyRole, {nullable: true})
-  // @IsEnum(familyRole)
-  daugtherStatus: familyRole;     // 딸 가족 사항
+  @Column({ nullable: true })
+  @Field(type => String, {nullable: true})
+  daugtherStatus: string;     // 딸 가족 사항
   
   @Column()
   @IsString()
@@ -95,19 +84,14 @@ export class Consult {
   marriedStatus: string;          // 결혼 상태 
   
   @Column()
-  @IsNumber()
-  @Field(_ => Number)
-  furnitureType: number;          // 가구 유형
+  @Field(_ => String)
+  @IsString()
+  furnitureType: string;          // 가구 유형
   
   @Column({nullable: true})
   // @IsString()
   @Field(_ => String, {nullable: true})
   Guaranteed: string;          // 보장 구분 
-  
-  @Column()
-  @IsString()
-  @Field(_ => String)
-  monthlyIncome: string;          // 월 수익
   
   @Column()
   @IsString()
@@ -150,7 +134,7 @@ export class Consult {
   status: number;    // 상태 
   
   @ManyToOne(_ => User,user => user.consult, { onDelete: 'CASCADE' })
-  @Field(_ => [User])
+  @Field(_ => User)
   @JoinColumn()
   user: User;  // 신청한 유저 
   
