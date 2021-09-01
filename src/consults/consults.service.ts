@@ -111,6 +111,20 @@ export class ConsultService {
       }
     }
   }
+
+  async loadConsultData(consultNo: number): Promise<Consult> {
+    try{
+      const consult = await this.consults.findOne({
+        where: {
+            no:consultNo 
+        }
+      });
+      console.log(consult);
+      return consult;
+    } catch (error){
+      throw error;
+    }
+  }
   
   async loadConsultList(userNo: number): Promise<Consult[]> {
     try{

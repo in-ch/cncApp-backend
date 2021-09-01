@@ -26,6 +26,13 @@ export class ConsultResolver {
     ): Promise<RequestConsultOutput> {
         return await this.consultsService.updateConsult(consultNo, updateConsultInput);
     }
+    
+    @Mutation(_ => Consult)  // 상담 id를 통해 상담서 정보 가져오기 
+    async loadConsultData(
+        @Args('consultNo', {type: () => Int}) consultNo: number,
+    ): Promise<Consult> {
+        return await this.consultsService.loadConsultData(consultNo);
+    }
 
     @Query(_ => [Consult])
     async loadConsultList(
