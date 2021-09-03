@@ -30,12 +30,20 @@ export class UserResolver {
     return result;
   }
   
-  @Mutation(_ => SmsApi)
+  @Mutation(_ => SmsApi)   // 회원 가입 용 
   async smsApi(
     @Args('phone',{type: () => String}) phone: string,
   ): Promise<SmsApi> {
     return await this.usersService.smsApi(phone);
   }
+
+  @Mutation(_ => SmsApi)  // 로그인 용 
+  async smsApi2(
+    @Args('phone',{type: () => String}) phone: string,
+  ): Promise<SmsApi> {
+    return await this.usersService.smsApi2(phone);
+  }
+
 
   @Mutation(_ => CompareCodeOutput)
   async compareCode(

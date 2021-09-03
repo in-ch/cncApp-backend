@@ -122,7 +122,10 @@ export class UserService {
       }
     );
     if(exists){
-      // 존재 
+      // 존재  
+      this.auths.delete({
+        phone:convertPhone
+      });
       return {
         ok:true, 
       }
@@ -200,4 +203,69 @@ export class UserService {
       }
     }
   }
+
+  async smsApi2(phone:string):Promise<SmsApi>{
+
+    const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
+
+    const exists = await this.users.findOne({ phone : convertPhone });
+    if (!exists) {
+      return { ok: false, error: '회원 가입한 핸드폰 번호가 아닙니다.' };
+    }
+
+    try{
+      let token = ''
+      for (let i = 0; i < 6; i++) {
+        token += Math.floor(Math.random() * 10)
+      }
+
+      const serviceId = "ncp:sms:kr:271475285604:cnc-sms";
+      const accessKey = "DAOZ2Ohub48Xse0holQC";  
+      const url_ = `https://sens.apigw.ntruss.com/sms/v2/services/${serviceId}/messages`; 
+      
+      const body = {
+        type: 'SMS',
+        contentType: 'COMM',
+        countryCode: '82',
+        from: '01056922949', // 발신자 번호
+        content: `[CNC 인증문자] ${token}`,
+        messages: [
+          {
+            to: convertPhone, // 수신자 번호
+          },
+        ],
+      };
+      const options = {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'x-ncp-iam-access-key': accessKey,
+          'x-ncp-apigw-timestamp': Date.now().toString(),
+          'x-ncp-apigw-signature-v2': this.makeSignature(),
+        },
+      };
+
+      axios
+        .post(url_, body, options)
+        .then(async (res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          throw new InternalServerErrorException();
+        });
+
+      await this.auths.save(
+        this.auths.create({ token, phone : convertPhone }),
+      );
+      return {
+        ok:true,
+        token,
+      }
+    } catch (e) {
+      return {
+        ok:false,
+        error:'문자 요청에 실패했습니다. 수신 번호을 확인해주세요.',
+      }
+    }
+  }
+
 }
