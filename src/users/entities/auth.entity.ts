@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
 import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { BeforeInsert, Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { User } from './user.entity';
 
 @InputType({ isAbstract: true })
@@ -9,15 +9,12 @@ import { User } from './user.entity';
 @Entity()
 export class Auth extends CoreEntity {
   @Column()
-  @Field(type => String)
-  code: string;
+  @IsString()
+  @Field(_ => String)
+  token: string;
 
-  @OneToOne(type => User, { onDelete: 'CASCADE' })
-  @JoinColumn()
-  user: User;
-
-  @BeforeInsert()
-  createCode(): void {
-    this.code = uuidv4();
-  }
+  @Column({ select: false })
+  @IsString()
+  @Field(_ => String)
+  phone: string;
 }
