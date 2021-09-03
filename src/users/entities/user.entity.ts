@@ -28,11 +28,20 @@ export class User extends CoreEntity {
   @Field(type => String)
   name: string;
 
-  @Column({ select: false })
+  @Column()
   @IsString()
   @Field(type => String)
   phone: string;
 
+  @Column()
+  @IsString()
+  @Field(type => String)
+  birth: string;
+
+  @Column()
+  @IsString()
+  @Field(type => String)
+  history: string;
 
   @OneToMany(_=> Consult, consult=>consult.user)
   @Field(_ => [Consult])

@@ -63,6 +63,8 @@ export class UserService {
   async createAccount({
     phone,
     name,
+    birth,
+    history,
   }: CreateAccountInput): Promise<{ ok: boolean; error?: string }> {
     try {
       const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
@@ -71,7 +73,7 @@ export class UserService {
         return { ok: false, error: '이미 존재하는 핸드폰 번호입니다.' };
       }
       const user = await this.users.save(
-        this.users.create({ name, phone : convertPhone }),
+        this.users.create({ name, phone : convertPhone,birth,history }),
       );
       return { ok: true };
     } catch (e) {
