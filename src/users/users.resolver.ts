@@ -13,8 +13,6 @@ const pubSub = new PubSub();
 @Resolver(_ => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
-  
-  @Query(_ => String)
 
   @Mutation(_ => LoginOutput)
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {

@@ -82,10 +82,10 @@ export class UserService {
   }
 
   async login({
-    name,
     phone
   }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
     const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
+    console.log(convertPhone);
     try {
       const user = await this.users.findOne(
         { phone : convertPhone }
@@ -97,6 +97,7 @@ export class UserService {
         };
       }
       const token = this.jwtService.sign(user.phone);
+
       return {
         ok: true,
         token,
