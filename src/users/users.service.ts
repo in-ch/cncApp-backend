@@ -96,7 +96,7 @@ export class UserService {
           error: '유저가 존재하지 않습니다.',
         };
       }
-      const token = this.jwtService.sign(user.phone);
+      const token = this.jwtService.sign(user.no);
 
       return {
         ok: true,
