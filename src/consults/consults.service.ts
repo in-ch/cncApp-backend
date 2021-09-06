@@ -140,4 +140,12 @@ export class ConsultService {
       throw error;
     }
   }
+  async loadConsultListAll(): Promise<Consult[]> {
+    try{
+      const consults = await this.consults.find();
+      return consults;
+    } catch (error){
+      throw error;
+    }
+  }
 }

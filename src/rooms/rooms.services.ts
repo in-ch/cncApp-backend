@@ -18,16 +18,28 @@ export class RoomsService {
   ) {}
   async loadRooms(userNo:number, consultNo:number): Promise<Rooms[]> {
     try {
-      const rooms = await this.rooms.find({
-        where: {
-          user:{
-            no:userNo
-          },
-          consult: {
-            no:consultNo
+      let rooms = null;
+      if(userNo === 91230122222){
+        rooms = await this.rooms.find({
+          where: {
+            consult: {
+              no:consultNo
+            }
           }
-        }
-      });
+        });
+      } else {
+        rooms = await this.rooms.find({
+          where: {
+            user:{
+              no:userNo
+            },
+            consult: {
+              no:consultNo
+            }
+          }
+        });
+      }
+      
       return rooms;
     } catch (error) {
       throw error;
