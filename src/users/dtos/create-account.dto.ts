@@ -11,4 +11,7 @@ export class CreateAccountInput extends PickType(User, [
 ]) {}
 
 @ObjectType()
-export class CreateAccountOutput extends MutationOutput {}
+export class CreateAccountOutput extends MutationOutput {
+  @Field(_ => String, { nullable: true })
+  token?: string;
+}

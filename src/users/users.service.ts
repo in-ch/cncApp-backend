@@ -65,7 +65,7 @@ export class UserService {
     name,
     birth,
     history,
-  }: CreateAccountInput): Promise<{ ok: boolean; error?: string }> {
+  }: CreateAccountInput): Promise<{ ok: boolean; error?: string; token?: string; }> {
     try {
       const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
       const exists = await this.users.findOne({ phone : convertPhone });
@@ -75,7 +75,12 @@ export class UserService {
       const user = await this.users.save(
         this.users.create({ name, phone : convertPhone,birth,history }),
       );
-      return { ok: true };
+      const token = this.jwtService.sign(user.no);
+
+      return { 
+        ok: true,
+        token 
+      };
     } catch (e) {
       return { ok: false, error: "회원 가입이 불가합니다." };
     }
