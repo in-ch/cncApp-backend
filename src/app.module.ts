@@ -14,6 +14,7 @@ import { AdminModule } from './admin/admin.module';
 import { Consult } from './consults/entities/consult.entity';
 import { Rooms } from './rooms/entities/rooms.entity';
 import { UploadsModule } from './uploads/uploads.module';
+import { Admin } from './admin/entities/admin.entity';
 
 @Module({
   imports: [
@@ -42,7 +43,7 @@ import { UploadsModule } from './uploads/uploads.module';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging: process.env.NODE_ENV !== 'prod',
-      entities: [User,Auth, Consult, Rooms], // db 들어가는 곳 
+      entities: [User,Auth, Consult, Rooms, Admin], // db 들어가는 곳 
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
