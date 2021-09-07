@@ -25,6 +25,14 @@ export class ConsultResolver {
     ): Promise<RequestConsultOutput> {
         return await this.consultsService.updateConsult(consultNo, updateConsultInput);
     }
+
+    @Mutation(_ => UpdateConsultOutput)  // 결제 완료 이벤트
+    async paidDone(
+        @Args('consultNo', {type: () => Int}) consultNo: number,
+        @Args('status', {type: () => Int}) status: number,
+    ): Promise<RequestConsultOutput> {
+        return await this.consultsService.paidDone(consultNo, status);
+    }
     
     @Mutation(_ => Consult)  // 상담 id를 통해 상담서 정보 가져오기 
     async loadConsultData(

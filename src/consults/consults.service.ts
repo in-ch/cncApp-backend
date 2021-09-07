@@ -107,6 +107,22 @@ export class ConsultService {
     }
   }
 
+  async paidDone(no: number, status: number): Promise<{ok:boolean,error?:string}> {
+    try{
+      const Consult = await this.consults.findOne({no});
+      Consult.status = status; 
+      this.consults.save(Consult);
+      return {
+        ok:true,
+      }
+    } catch(error){
+      return {
+        ok:false,
+        error
+      }
+    }
+  }
+
   async loadConsultData(consultNo: number): Promise<Consult> {
     try{
       const consult = await this.consults.findOne({
