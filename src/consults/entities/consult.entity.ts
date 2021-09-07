@@ -133,6 +133,17 @@ export class Consult {
   @IsNumber()
   status: number;    // 상태 
   
+  // @Field(_ => Boolean, { defaultValue: false })
+  // @Column()
+  // @IsBoolean()
+  // seeUser: boolean;    // 유저가 봤는지 여부 
+
+  // @Field(_ => Boolean, { defaultValue: false })
+  // @Column()
+  // @IsBoolean()
+  // seeAdmin: boolean;    // 관리자가 봤는지 여부
+
+
   @ManyToOne(_ => User,user => user.consult, { onDelete: 'CASCADE' })
   @Field(_ => User)
   @JoinColumn()
