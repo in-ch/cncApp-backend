@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from 'src/jwt/jwt.service';
 import { LoginOutput } from 'src/users/dtos/login.dto';
-import { Entity, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import { SetStatusOutput } from './dto/set-status.dto';
 import { Admin } from './entities/admin.entity';
 
 @Injectable()
@@ -30,4 +31,29 @@ export class AdminService {
       return { ok: false, error: "로그인에 실패했습니다." };
     }
   }  
+
+  async setStatus(status: number): Promise<SetStatusOutput> {
+    try{
+      const admin = await this.admins.findOne({});
+      admin.status = status;
+      this.admins.save(admin);
+      return {
+        ok:true,
+      }
+    } catch(error) {
+      return {
+        ok:false,
+        error:error
+      }
+    }
+  }
+
+  async loadAdmin(): Promise<Admin> {
+    try{
+      const admin = await this.admins.findOne({});
+      return admin;
+    } catch(error) {
+      return null;
+    }
+  } 
 }
