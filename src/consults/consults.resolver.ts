@@ -10,11 +10,11 @@ import { UpdateConsultInput, UpdateConsultOutput } from './dto/update-consult.dt
 export class ConsultResolver {
   constructor(private readonly consultsService: ConsultService) {}
 
-    @Mutation(_ => RequestConsultOutput)
+    @Mutation(_ => Consult)
     async requestConsult(
         @Args('input') requestConsultInput: RequestConsultInput,
         @Args('userNo', {type: () => Int}) userNo: number,
-    ): Promise<RequestConsultOutput> {
+    ): Promise<Consult> {
         return await this.consultsService.requestConsult(requestConsultInput, userNo);
     }
 

@@ -13,7 +13,7 @@ export class ConsultService {
     @InjectRepository(User) private readonly users: Repository<User>,
   ) {}
 
-  async requestConsult(requestConsultInput: RequestConsultInput, userNo: number): Promise<{ ok: boolean; error?: string }> {
+  async requestConsult(requestConsultInput: RequestConsultInput, userNo: number): Promise<Consult> {
     try {
         const newConsult = this.consults.create(
           requestConsultInput,
@@ -26,14 +26,9 @@ export class ConsultService {
         newConsult.user = Writer;
         
         await this.consults.save(newConsult);
-        return {
-            ok:true
-        }
+        return newConsult;
     } catch (error) {
-      return {
-        ok: false,
-        error,
-      };
+      return null;
     }
   }
 
