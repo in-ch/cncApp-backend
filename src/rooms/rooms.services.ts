@@ -64,7 +64,8 @@ export class RoomsService {
       const { toUserId, file, isAdmin, consultId } = createRoomMessagePhotoInput;
       const to = await this.users.findOne(toUserId);
       const user = await this.users.findOne(toUserId);
-      const consult = await this.consults.findOne(consultId);
+      const consult = await this.consults.findOne(consultId);;
+
       const newRooms = this.rooms.create({
         user,
         to,
@@ -72,6 +73,8 @@ export class RoomsService {
         isAdmin,
         consult,
         userName:user.name,
+        birth:user.birth,
+        phone:user.phone,
       });
       return this.rooms.save(newRooms); 
     } catch (error) {
