@@ -39,6 +39,22 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @JoinColumn()
     user: User;   // 보낸 유저
 
+    @Column({nullable: true})
+    @IsString()
+    @Field(_ => String)
+    userName: String;   // 유저 이름 
+
+    @Column({nullable: true})
+    @IsString()
+    @Field(_ => String)
+    birth: String;   // 유저 생년월일  
+
+    @Column({nullable: true})
+    @IsString()
+    @Field(_ => String)
+    phone: String;   // 유저 번호 
+
+
     @ManyToOne(_ => User, user => user.rooms ,{ onDelete: 'CASCADE' })
     @JoinColumn()
     to: User;   // 수신자

@@ -16,29 +16,20 @@ export class RoomsService {
     @InjectRepository(Consult) private readonly consults: Repository<Consult>,
     
   ) {}
-  async loadRooms(userNo:number, consultNo:number): Promise<Rooms[]> {
+  async loadRooms(consultNo:number): Promise<Rooms[]> {
     try {
-      let rooms = null;
-      if(userNo === 91230122222){
-        rooms = await this.rooms.find({
+
+      const rooms = await this.rooms.find({
           where: {
             consult: {
               no:consultNo
             }
+          },
+          order: {
+            no:"DESC"
           }
-        });
-      } else {
-        rooms = await this.rooms.find({
-          where: {
-            user:{
-              no:userNo
-            },
-            consult: {
-              no:consultNo
-            }
-          }
-        });
-      }
+      });
+
       
       return rooms;
     } catch (error) {
@@ -49,17 +40,18 @@ export class RoomsService {
   async createRooms(createRoomInput: CreateRoomInput): Promise<Rooms> {
       try {
         const { toUserId, message, isAdmin, consultId } = createRoomInput;
-        const userId = 1;
         const to = await this.users.findOne(toUserId);
-        const user = await this.users.findOne(userId);
+        const user = await this.users.findOne(toUserId);
         const consult = await this.consults.findOne(consultId);
-
         const newRooms = this.rooms.create({
           user,
           to,
           message,
           isAdmin,
-          consult
+          consult,
+          userName:user.name,
+          birth:user.birth,
+          phone:user.phone,
         });
         return this.rooms.save(newRooms); 
     } catch (error) {
@@ -70,16 +62,16 @@ export class RoomsService {
   async createRoomMessagePhoto(createRoomMessagePhotoInput: CreateRoomMessagePhotoInput): Promise<Rooms> {
     try{
       const { toUserId, file, isAdmin, consultId } = createRoomMessagePhotoInput;
-      const userId = 1; 
       const to = await this.users.findOne(toUserId);
-      const user = await this.users.findOne(userId);
+      const user = await this.users.findOne(toUserId);
       const consult = await this.consults.findOne(consultId);
       const newRooms = this.rooms.create({
         user,
         to,
         file,
         isAdmin,
-        consult
+        consult,
+        userName:user.name,
       });
       return this.rooms.save(newRooms); 
     } catch (error) {

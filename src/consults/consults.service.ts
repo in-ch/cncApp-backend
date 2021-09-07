@@ -117,9 +117,11 @@ export class ConsultService {
       const consult = await this.consults.findOne({
         where: {
             no:consultNo 
+        },
+        order: {
+          no: "DESC"
         }
       });
-      console.log(consult);
       return consult;
     } catch (error){
       throw error;

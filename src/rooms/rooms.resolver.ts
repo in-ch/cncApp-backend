@@ -28,10 +28,9 @@ export class RoomsResolver {
   
   @Query(_ => [Rooms])
   async loadRooms(
-      @Args('userNo', {type: () => Int}) userNo:number,
       @Args('consultNo', {type: () => Int}) consultNo:number
   ) : Promise<Rooms[]> {
-      return await this.roomsService.loadRooms(userNo, consultNo);
+      return await this.roomsService.loadRooms(consultNo);
   }
 
   @Subscription(()=>Rooms)
