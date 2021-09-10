@@ -55,6 +55,13 @@ export class UserResolver {
   userAdded() {
     return pubSub.asyncIterator('userAdded');
   }
+
+  @Query(() => Boolean)
+  sendPush(
+    @Args('fcmToken',{type: () => String}) fcmToken: string,
+  ) {
+    return this.usersService.sendPush(fcmToken);
+  }
 }
   
   

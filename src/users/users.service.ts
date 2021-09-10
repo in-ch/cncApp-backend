@@ -16,6 +16,7 @@ import { LoginInput } from './dtos/login.dto';
 import { PubSub } from 'graphql-subscriptions';
 import { SmsApi } from './dtos/sms-api.dto';
 import { CompareCodeInput, CompareCodeOutput } from './dtos/compare-code';
+import { push } from 'src/fcm/config';
 
 const pubSub = new PubSub();
 @Injectable()
@@ -274,4 +275,20 @@ export class UserService {
     }
   }
 
+  sendPush = (fcmToken: string): boolean => {
+    const message = {
+      notification: {
+        title: 'title',
+        body: 'body',
+      },
+      token: fcmToken,
+    };
+    push
+      .messaging()
+      .send(message) // secondary => dev   push => prod
+      .catch((error) => {
+        console.log('🚨 error', JSON.stringify(error));
+      });
+    return true;
+  };
 }
