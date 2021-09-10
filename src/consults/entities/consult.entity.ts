@@ -84,7 +84,7 @@ export class Consult {
   marriedStatus: string;          // 결혼 상태 
   
   @Column()
-  @Field(_ => String)
+  @Field(_ => String, {nullable: true})
   @IsString()
   furnitureType: string;          // 가구 유형
   
