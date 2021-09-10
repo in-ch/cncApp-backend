@@ -80,7 +80,7 @@ export class Consult {
   
   @Column()
   @IsString()
-  @Field(_ => String)
+  @Field(_ => String, {nullable: true})
   marriedStatus: string;          // 결혼 상태 
   
   @Column()
