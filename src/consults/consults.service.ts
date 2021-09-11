@@ -36,27 +36,27 @@ export class ConsultService {
     try{
       const Consult = await this.consults.findOne({no}); // consultNo 값을 통해 Consult를 불러온다. 
 
-      if(updateConsultInput.Guaranteed){
-        Consult.Guaranteed = updateConsultInput.Guaranteed;
-      } 
+      // if(updateConsultInput.Guaranteed){
+      //   Consult.Guaranteed = updateConsultInput.Guaranteed;
+      // } 
       if(updateConsultInput.acquisitionPath) {
         Consult.acquisitionPath = updateConsultInput.acquisitionPath;
       }
       if(updateConsultInput.address) {
         Consult.address = updateConsultInput.address;
       }
-      if(updateConsultInput.apartResidential){
-        Consult.apartResidential = updateConsultInput.apartResidential;
-      }
+      // if(updateConsultInput.apartResidential){
+      //   Consult.apartResidential = updateConsultInput.apartResidential;
+      // }
       if(updateConsultInput.daugtherStatus){
         Consult.daugtherStatus = updateConsultInput.daugtherStatus;
       }
-      if(updateConsultInput.efficiencyApartmentResidential){
-        Consult.efficiencyApartmentResidential = updateConsultInput.efficiencyApartmentResidential;
-      }
-      if(updateConsultInput.employment){
-        Consult.employment = updateConsultInput.employment;
-      }
+      // if(updateConsultInput.efficiencyApartmentResidential){
+      //   Consult.efficiencyApartmentResidential = updateConsultInput.efficiencyApartmentResidential;
+      // }
+      // if(updateConsultInput.employment){
+      //   Consult.employment = updateConsultInput.employment;
+      // }
       if(updateConsultInput.fatherStatus){
         Consult.fatherStatus = updateConsultInput.fatherStatus;
       }
@@ -72,9 +72,9 @@ export class ConsultService {
       if(updateConsultInput.motherStatus){
         Consult.motherStatus = updateConsultInput.motherStatus;
       }
-      if(updateConsultInput.oneRoomResidential){
-        Consult.oneRoomResidential = updateConsultInput.oneRoomResidential;
-      }
+      // if(updateConsultInput.oneRoomResidential){
+      //   Consult.oneRoomResidential = updateConsultInput.oneRoomResidential;
+      // }
       if(updateConsultInput.problem){
         Consult.problem = updateConsultInput.problem;
       }
@@ -90,10 +90,9 @@ export class ConsultService {
       if(updateConsultInput.title){
         Consult.title = updateConsultInput.title;
       }
-      if(updateConsultInput.villaResidential){
-        Consult.villaResidential = updateConsultInput.villaResidential;
-      }
-
+      // if(updateConsultInput.villaResidential){
+      //   Consult.villaResidential = updateConsultInput.villaResidential;
+      // }
       
       this.consults.save(Consult);
       return {
@@ -133,6 +132,7 @@ export class ConsultService {
           no: "DESC"
         }
       });
+      console.log(consult);
       return consult;
     } catch (error){
       throw error;

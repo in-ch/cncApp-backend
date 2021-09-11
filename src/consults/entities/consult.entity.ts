@@ -57,7 +57,6 @@ export class Consult {
   @Field(type => String,{nullable: true})
   fatherStatus: string;     // 부의 가족사항
   
-  
   @Column({ nullable: true})
   @Field(type => String, {nullable: true})
   motherStatus: string;     // 모의 가족 사항   
@@ -88,41 +87,18 @@ export class Consult {
   @IsString()
   furnitureType: string;          // 가구 유형
   
-  @Column({nullable: true})
-  // @IsString()
-  @Field(_ => String, {nullable: true})
-  Guaranteed: string;          // 보장 구분 
-  
-  @Column()
-  @IsString()
-  @Field(_ => String)
-  employment: string;          // 고용 형태
-  
-  @Column({nullable: true})
-  // @IsString()
-  @Field(_ => String, {nullable: true})
-  apartResidential: string;          // 아파트 주거 상황 
-  
-  @Column({nullable: true})
-  // @IsString()
-  @Field(_ => String,{nullable: true})
-  villaResidential: string;          // 빌라 주거 상황 
-  
-  @Column({nullable: true})
-  // @IsString()
-  @Field(_ => String,{nullable: true})
-  efficiencyApartmentResidential: string;          // 오피스텔 주거 상황 
-  
-  @Column({nullable: true})
-  // @IsString()
-  @Field(_ => String,{nullable: true})
-  oneRoomResidential: string;          // 원룸 주거 상황 
-  
   @Column()
   @IsString()
   @Field(_ => String)
   problem: string;          // 주요 문제 
-  
+
+  // @Field(_ => Boolean,  { defaultValue: false })
+  // @Column()
+  // @IsBoolean()
+  // seeUser: boolean;  // 유저가 봤는 지 여부
+
+
+
   @Field(_ => Boolean,  { defaultValue: false })
   @Column()
   @IsBoolean()
@@ -133,10 +109,8 @@ export class Consult {
   @IsNumber()
   status: number;    // 상태 
   
-  // @Field(_ => Boolean, { defaultValue: false })
-  // @Column()
-  // @IsBoolean()
-  // seeUser: boolean;    // 유저가 봤는지 여부 
+ 
+  // 유저가 봤는지 여부 new를 위해 넣음 .. 채팅을 입력하면 true로 바꾸기 
 
   // @Field(_ => Boolean, { defaultValue: false })
   // @Column()
