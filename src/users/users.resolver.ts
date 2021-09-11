@@ -62,7 +62,7 @@ export class UserResolver {
     return this.usersService.sendPush(fcmToken);
   }
 
-  @Query(() => User)
+  @Mutation(() => User)
   loadUser(
     @Args('userNo', {type: () => Int}) userNo: number,
   ) {
