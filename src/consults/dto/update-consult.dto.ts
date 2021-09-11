@@ -16,13 +16,7 @@ export class UpdateConsultInput extends PartialType(PickType(Consult, [
     'daugtherStatus',
     'marriedStatus',
     'furnitureType',
-    'Guaranteed',
-    'apartResidential',
-    'villaResidential',
-    'efficiencyApartmentResidential',
-    'oneRoomResidential',
     'problem',
-    'employment',
     'isPaid',
     'status',
 ])
