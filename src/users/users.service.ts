@@ -291,4 +291,22 @@ export class UserService {
       });
     return true;
   };
+
+
+  async loadUser(userNo: number): Promise<User> {
+    try{
+      const user = await this.users.findOne({
+        where: {
+            no:userNo 
+        },
+        order: {
+          no: "DESC"
+        }
+      });
+      console.log(user);
+      return user;
+    } catch (error){
+      throw error;
+    }
+  }
 }

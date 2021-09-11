@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, Context, Subscription } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context, Subscription, Int } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 
 import { User } from './entities/user.entity';
@@ -42,7 +42,6 @@ export class UserResolver {
     return await this.usersService.smsApi2(phone);
   }
 
-
   @Mutation(_ => CompareCodeOutput)
   async compareCode(
     @Args('input') compareCodeInput: CompareCodeInput,
@@ -61,6 +60,13 @@ export class UserResolver {
     @Args('fcmToken',{type: () => String}) fcmToken: string,
   ) {
     return this.usersService.sendPush(fcmToken);
+  }
+
+  @Query(() => User)
+  loadUser(
+    @Args('userNo', {type: () => Int}) userNo: number,
+  ) {
+    return this.usersService.loadUser(userNo);
   }
 }
   
