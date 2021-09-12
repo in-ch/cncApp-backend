@@ -91,7 +91,6 @@ export class UserService {
     phone
   }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
     const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
-    console.log(convertPhone);
     try {
       const user = await this.users.findOne(
         { phone : convertPhone }
@@ -303,7 +302,6 @@ export class UserService {
           no: "DESC"
         }
       });
-      console.log(user);
       return user;
     } catch (error){
       throw error;

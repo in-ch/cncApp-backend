@@ -132,7 +132,6 @@ export class ConsultService {
           no: "DESC"
         }
       });
-      console.log(consult);
       return consult;
     } catch (error){
       throw error;
@@ -146,6 +145,9 @@ export class ConsultService {
           user:{
             no:userNo
           }
+        },
+        order: {
+          status:"ASC"
         }
       });
       return consults;
