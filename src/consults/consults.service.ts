@@ -163,7 +163,8 @@ export class ConsultService {
       const consults = await this.consults.find({
         order: {
           status:"ASC"
-        }
+        }, 
+        relations:["user"]
       });
       return consults;
     } catch (error){

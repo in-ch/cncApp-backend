@@ -18,7 +18,6 @@ export class RoomsService {
   ) {}
   async loadRooms(consultNo:number): Promise<Rooms[]> {
     try {
-
       const rooms = await this.rooms.find({
           where: {
             consult: {
@@ -27,7 +26,7 @@ export class RoomsService {
           },
           order: {
             no:"DESC"
-          }
+          },
       });
 
       
