@@ -5,6 +5,7 @@ import { RequestConsultInput, RequestConsultOutput } from './dto/request-consult
 import { Consult } from './entities/consult.entity';
 import { ConsultService } from './consults.service';
 import { UpdateConsultInput, UpdateConsultOutput } from './dto/update-consult.dto';
+import { SeeUserOutput } from './dto/see-user.dto';
 
 @Resolver(_ => Consult)
 export class ConsultResolver {
@@ -33,6 +34,14 @@ export class ConsultResolver {
     ): Promise<RequestConsultOutput> {
         return await this.consultsService.paidDone(consultNo, status);
     }
+
+    @Mutation(_ => SeeUserOutput)  // 유저가 봤나? 이벤트
+    async seeUser(
+        @Args('consultNo', {type: () => Int}) consultNo: number,
+    ): Promise<SeeUserOutput> {
+        return await this.consultsService.seeUser(consultNo);
+    }
+
     
     @Mutation(_ => Consult)  // 상담 id를 통해 상담서 정보 가져오기 
     async loadConsultData(

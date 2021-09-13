@@ -24,6 +24,8 @@ export class ConsultService {
           }
         });
         newConsult.user = Writer;
+        console.log('-------------');
+        console.log(newConsult);
         
         await this.consults.save(newConsult);
         return newConsult;
@@ -157,10 +159,36 @@ export class ConsultService {
   }
   async loadConsultListAll(): Promise<Consult[]> {
     try{
-      const consults = await this.consults.find();
+      const consults = await this.consults.find({
+        order: {
+          status:"ASC"
+        }
+      });
       return consults;
     } catch (error){
       throw error;
+    }
+  }
+
+  async seeUser(consultNo: number) : Promise<{ok:boolean,error?:string}> {
+    try{
+
+      const Consult = await this.consults.findOne({
+          no:consultNo
+      }); // consultNo 값을 통해 Consult를 불러온다. 
+
+      console.log(Consult);
+      Consult.userSee = true;
+      await this.consults.save(Consult);
+
+      return {
+        ok:true,
+      }
+    } catch(error){
+      return {
+        ok:false,
+        error
+      }
     }
   }
 }

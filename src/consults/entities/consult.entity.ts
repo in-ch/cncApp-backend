@@ -92,10 +92,16 @@ export class Consult {
   @Field(_ => String)
   problem: string;          // 주요 문제 
 
-  // @Field(_ => Boolean,  { defaultValue: false })
-  // @Column()
-  // @IsBoolean()
-  // seeUser: boolean;  // 유저가 봤는 지 여부
+  @Field(_ => Boolean,  { defaultValue: false,nullable: true  })
+  @Column({nullable: true})
+  @IsBoolean()
+  userSee: boolean;  // 결제 완료 여부 
+
+
+  @Field(_ => Boolean,  { defaultValue: false,nullable: true })
+  @Column({nullable: true})
+  @IsBoolean()
+  adminSee: boolean;  // 어드민이 봤는 지 여부
 
 
 
@@ -104,6 +110,8 @@ export class Consult {
   @IsBoolean()
   isPaid: boolean;  // 결제 완료 여부 
   
+
+
   @Field(_ => Int, { defaultValue: 0 })
   @Column()
   @IsNumber()

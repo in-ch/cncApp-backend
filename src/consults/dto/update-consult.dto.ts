@@ -19,6 +19,8 @@ export class UpdateConsultInput extends PartialType(PickType(Consult, [
     'problem',
     'isPaid',
     'status',
+    'userSee',
+    'adminSee',
 ])
  ) {}
 
