@@ -150,7 +150,8 @@ export class ConsultService {
           }
         },
         order: {
-          status:"ASC"
+          status:"ASC",
+          no:"DESC"
         }
       });
       return consults;
@@ -162,7 +163,8 @@ export class ConsultService {
     try{
       const consults = await this.consults.find({
         order: {
-          status:"ASC"
+          status:"ASC",
+          no:"DESC"
         }, 
         relations:["user"]
       });
