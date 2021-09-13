@@ -48,6 +48,11 @@ export class Consult {
   @Field(_ => String)
   history: string; // 상담 이력
   
+  @Column()
+  @IsString()
+  @Field(_ => String)
+  method: string; // 상담 방법 [전화 혹은 채팅]
+
   @Column({nullable: true})
   // @IsString()
   @Field(_ => String, {nullable: true})

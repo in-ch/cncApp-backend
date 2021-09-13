@@ -7,6 +7,7 @@ export class UpdateConsultInput extends PartialType(PickType(Consult, [
     'title',
     'address',
     'history',
+    'method',
     'acquisitionPath',    
     'fatherStatus',
     'motherStatus',

@@ -7,6 +7,7 @@ export class RequestConsultInput extends PickType(Consult, [
     'title',
     'address',
     'history',
+    'method',
     'acquisitionPath',    
     'fatherStatus',
     'motherStatus',

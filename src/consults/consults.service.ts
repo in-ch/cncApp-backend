@@ -24,8 +24,6 @@ export class ConsultService {
           }
         });
         newConsult.user = Writer;
-        console.log('-------------');
-        console.log(newConsult);
         
         await this.consults.save(newConsult);
         return newConsult;
@@ -61,6 +59,9 @@ export class ConsultService {
       // }
       if(updateConsultInput.fatherStatus){
         Consult.fatherStatus = updateConsultInput.fatherStatus;
+      }
+      if(updateConsultInput.method){
+        Consult.method = updateConsultInput.method;
       }
       if(updateConsultInput.furnitureType){
         Consult.furnitureType = updateConsultInput.furnitureType;
