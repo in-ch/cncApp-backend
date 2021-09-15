@@ -6,7 +6,7 @@ import { Consult } from './entities/consult.entity';
 import { ConsultService } from './consults.service';
 import { UpdateConsultInput, UpdateConsultOutput } from './dto/update-consult.dto';
 import { SeeUserOutput } from './dto/see-user.dto';
-import { SeeWhenSendMessageOutput } from './dto/see-Whensend.dto';
+import { SeeWhenSendMessageOutput } from './dto/see-whenSend.dto';
 
 @Resolver(_ => Consult)
 export class ConsultResolver {
