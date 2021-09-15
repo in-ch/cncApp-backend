@@ -6,6 +6,7 @@ import { Consult } from './entities/consult.entity';
 import { ConsultService } from './consults.service';
 import { UpdateConsultInput, UpdateConsultOutput } from './dto/update-consult.dto';
 import { SeeUserOutput } from './dto/see-user.dto';
+import { SeeWhenSendMessageOutput } from './dto/see-whensend.dto';
 
 @Resolver(_ => Consult)
 export class ConsultResolver {
@@ -42,6 +43,20 @@ export class ConsultResolver {
         return await this.consultsService.seeUser(consultNo);
     }
 
+    @Mutation(_ => SeeUserOutput)  // 어드민이 봤나? 이벤트
+    async seeAdmin(
+        @Args('consultNo', {type: () => Int}) consultNo: number,
+    ): Promise<SeeUserOutput> {
+        return await this.consultsService.seeAdmin(consultNo);
+    }
+
+    @Mutation(_ => SeeWhenSendMessageOutput)  // 유저나 어드민이 메시지를 보냈을 때 see이벤트
+    async seeWhenSendMessage(
+        @Args('consultNo', {type: () => Int}) consultNo: number,
+        @Args('isUser', {type: () => Boolean}) isUser: boolean,
+    ): Promise<SeeWhenSendMessageOutput> {
+        return await this.consultsService.seeWhenSendMessage(consultNo, isUser);
+    }
     
     @Mutation(_ => Consult)  // 상담 id를 통해 상담서 정보 가져오기 
     async loadConsultData(

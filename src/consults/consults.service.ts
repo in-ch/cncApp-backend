@@ -181,8 +181,54 @@ export class ConsultService {
           no:consultNo
       }); // consultNo 값을 통해 Consult를 불러온다. 
 
-      console.log(Consult);
       Consult.userSee = true;
+      await this.consults.save(Consult);
+
+      return {
+        ok:true,
+      }
+    } catch(error){
+      return {
+        ok:false,
+        error
+      }
+    }
+  }
+
+  async seeAdmin(consultNo: number) : Promise<{ok:boolean,error?:string}> {
+    try{
+      const Consult = await this.consults.findOne({
+          no:consultNo
+      }); // consultNo 값을 통해 Consult를 불러온다. 
+
+      Consult.adminSee = true;
+      await this.consults.save(Consult);
+
+      return {
+        ok:true,
+      }
+    } catch(error){
+      return {
+        ok:false,
+        error
+      }
+    }
+  }
+  async seeWhenSendMessage(consultNo: number, whatToggle: boolean) : Promise<{ok:boolean,error?:string}> {
+    try{
+
+      const Consult = await this.consults.findOne({
+          no:consultNo
+      }); // consultNo 값을 통해 Consult를 불러온다. 
+
+      if(whatToggle){  // true가 user가 메시지를 보냈을 때 
+        Consult.adminSee = false;
+        Consult.userSee = true;
+      } else {  // false가 admin이 메시지를 보냈을 때 
+        Consult.adminSee = true;
+        Consult.userSee = false;
+      }
+      
       await this.consults.save(Consult);
 
       return {
