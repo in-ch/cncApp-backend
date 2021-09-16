@@ -5,6 +5,7 @@ import { RoomsResolver } from './rooms.resolver';
 import { Rooms } from './entities/rooms.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Consult } from 'src/consults/entities/consult.entity';
+import { UserService } from 'src/users/users.service';
 @Module({
     imports: [TypeOrmModule.forFeature([Rooms, User, Consult])],
     providers:[RoomsResolver, RoomsService],
