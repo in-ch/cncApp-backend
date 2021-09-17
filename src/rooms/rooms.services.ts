@@ -83,8 +83,8 @@ export class RoomsService {
         });
         // const a = await this.rooms.findOne(consultId);
         if(isAdmin){
-          // this.sendMessage(user.phone,"상담사님께 새로운 문자가 왔습니다.");
           this.sendPush(user.DeviceToken);
+          // this.sendPush('eEPWakgeYEFCgVL0oKHC8C:APA91bFzkbLHzVFG_8WqBxDDhCJl1kelhVsiddxLquaFPauiPoKmJZ-HLMmCgcVAtMqNlSd3rEo4gl6jdxyUy0PHb7-6PUAZFnZxsPRttmCfEBROG8wbl4T199oWip0rgsgVOB_9dyL_');
         }
         
 
