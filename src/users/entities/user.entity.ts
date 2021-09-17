@@ -43,6 +43,11 @@ export class User extends CoreEntity {
   @Field(type => String)
   history: string;
 
+  @Column({nullable: true})
+  @IsString()
+  @Field(_ => String, {nullable: true})
+  DeviceToken: string;
+
   @OneToMany(_=> Consult, consult=>consult.user)
   @Field(_ => [Consult])
   consult: Consult[];

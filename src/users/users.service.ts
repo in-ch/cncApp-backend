@@ -88,7 +88,8 @@ export class UserService {
   }
 
   async login({
-    phone
+    phone,
+    DeviceToken,
   }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
     const convertPhone = phone.trim().replace(/-/g,'').replace(/ /g,'');
     try {
@@ -102,6 +103,9 @@ export class UserService {
         };
       }
       const token = this.jwtService.sign(user.no);
+
+      user.DeviceToken = DeviceToken;
+      this.users.save(user); 
 
       return {
         ok: true,
@@ -274,22 +278,6 @@ export class UserService {
     }
   }
 
-  sendPush = (fcmToken: string): boolean => {
-    const message = {
-      notification: {
-        title: 'title',
-        body: 'body',
-      },
-      token: fcmToken,
-    };
-    push
-      .messaging()
-      .send(message) // secondary => dev   push => prod
-      .catch((error) => {
-        console.log('🚨 error', JSON.stringify(error));
-      });
-    return true;
-  };
 
 
   async loadUser(userNo: number): Promise<User> {

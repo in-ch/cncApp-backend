@@ -9,6 +9,7 @@ import { CreateRoomMessagePhotoInput } from './dtos/create-room-message-photo.dt
 import * as crypto from 'crypto';
 import axios from 'axios';
 import { SmsApi } from 'src/users/dtos/sms-api.dto';
+import { push } from 'src/fcm/config';
 
 @Injectable()
 export class RoomsService {
@@ -83,11 +84,9 @@ export class RoomsService {
 
         const a = await this.rooms.findOne(consultId);
 
-        console.log('야');
-        // console.log(user.phone);
-
         if(isAdmin){
-          this.sendMessage(user.phone,"상담사님께 새로운 문자가 왔습니다.");
+          // this.sendMessage(user.phone,"상담사님께 새로운 문자가 왔습니다.");
+          this.sendPush('eqEmLFJUTk-Am6tuXbvoT9:APA91bHc_pJxGY3uI1XayjKAH5gHk0F5pgbx8KfvJgl_QlIBMNrkjcVdWauDNN5OcOwySJKCEGfQCcWWWaPy6d8sH289N0N3mz3YsWuKmsOBtNCjHFi-lAwlOGcmcft4lOodwKOtE_8n');
         }
         
 
@@ -168,5 +167,20 @@ export class RoomsService {
       }
     }
   }
-
+  sendPush = (fcmToken: string): boolean => {
+    const message = {
+      notification: {
+        title: '새로운 메시지가 왔습니다.',
+        body: '상담사님께 새로운 메시지가 왔습니다.',
+      },
+      token: fcmToken,
+    };
+    push
+      .messaging()
+      .send(message) // secondary => dev   push => prod
+      .catch((error) => {
+        console.log('🚨 error', JSON.stringify(error));
+      });
+    return true;
+  };
 }
