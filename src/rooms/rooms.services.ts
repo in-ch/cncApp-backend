@@ -81,12 +81,10 @@ export class RoomsService {
           birth:user.birth,
           phone:user.phone,
         });
-
-        const a = await this.rooms.findOne(consultId);
-
+        // const a = await this.rooms.findOne(consultId);
         if(isAdmin){
           // this.sendMessage(user.phone,"상담사님께 새로운 문자가 왔습니다.");
-          this.sendPush('eqEmLFJUTk-Am6tuXbvoT9:APA91bHc_pJxGY3uI1XayjKAH5gHk0F5pgbx8KfvJgl_QlIBMNrkjcVdWauDNN5OcOwySJKCEGfQCcWWWaPy6d8sH289N0N3mz3YsWuKmsOBtNCjHFi-lAwlOGcmcft4lOodwKOtE_8n');
+          this.sendPush(user.DeviceToken);
         }
         
 
