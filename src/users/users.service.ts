@@ -139,8 +139,18 @@ export class UserService {
       return {
         ok:true, 
       }
-    } else {
-      // 미존재 
+    } else {  
+      // 미존재  
+
+
+      // 데모용 만능 키 
+      if(token === '000021'){
+        return {
+          ok:true, 
+        }
+      }
+
+      // 데모용 만능 키 2 
       return {
         ok:false,
         error:"인증번호가 틀립니다."
