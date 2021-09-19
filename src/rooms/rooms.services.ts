@@ -9,7 +9,8 @@ import { CreateRoomMessagePhotoInput } from './dtos/create-room-message-photo.dt
 import * as crypto from 'crypto';
 import axios from 'axios';
 import { SmsApi } from 'src/users/dtos/sms-api.dto';
-import { push } from 'src/fcm/config';
+import { push, pushAdmin } from 'src/fcm/config';
+import { Admin } from 'src/admin/entities/admin.entity';
 
 @Injectable()
 export class RoomsService {
@@ -17,6 +18,8 @@ export class RoomsService {
     @InjectRepository(Rooms) private readonly rooms: Repository<Rooms>,
     @InjectRepository(User) private readonly users: Repository<User>,
     @InjectRepository(Consult) private readonly consults: Repository<Consult>,
+    @InjectRepository(Admin) private readonly admins: Repository<Admin>,
+    
   ) {}
 
   private makeSignature(): string {
@@ -85,6 +88,8 @@ export class RoomsService {
         if(isAdmin){
           this.sendPush(user.DeviceToken);
           // this.sendPush('eEPWakgeYEFCgVL0oKHC8C:APA91bFzkbLHzVFG_8WqBxDDhCJl1kelhVsiddxLquaFPauiPoKmJZ-HLMmCgcVAtMqNlSd3rEo4gl6jdxyUy0PHb7-6PUAZFnZxsPRttmCfEBROG8wbl4T199oWip0rgsgVOB_9dyL_');
+        } else {
+          this.sendPushAdmin('c6ehYqHjQ2yc1POHLZ2_FL:APA91bGmk78jHoHu0p1iL9fdHDKBtClnd52XxLm6h76Vr9N2RDzgWNVNLFg_16m-PmF9rz2mjLo2MUxeTcIIquTBZZa3x34z71mO2CEi8b9p48VcC27RlhcbnwVh224E_h6ywIW18Xup');
         }
         
 
@@ -181,4 +186,22 @@ export class RoomsService {
       });
     return true;
   };
+
+  sendPushAdmin = (fcmToken: string): boolean => {
+    const message = {
+      notification: {
+        title: '',
+        body: '새로운 메시지가 도착했습니다.',
+      },
+      token: fcmToken,
+    };
+    pushAdmin
+      .messaging()
+      .send(message) // secondary => dev   push => prod
+      .catch((error) => {
+        console.log('🚨 error', JSON.stringify(error));
+      });
+    return true;
+  };
+
 }

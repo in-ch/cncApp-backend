@@ -13,7 +13,7 @@ export class AdminService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async adminLogin(id: string, password: string): Promise<LoginOutput> {
+  async adminLogin(id: string, password: string, deviceToken:string): Promise<LoginOutput> {
     try{
       const admin = await this.admins.findOne({
         where: {
@@ -21,6 +21,9 @@ export class AdminService {
           password 
         }
       });
+
+      admin.DeviceToken = deviceToken;
+      this.admins.save(admin); 
       
       const token = this.jwtService.sign(admin.no);
       return { 

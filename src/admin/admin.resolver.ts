@@ -20,8 +20,9 @@ export class AdminResolver {
     async adminLogin(
         @Args('id', {type: () => String}) id: string,
         @Args('password', {type: () => String}) password: string,
+        @Args('deviceToken',{type: () => String}) deviceToken: string,
     ): Promise<LoginOutput> {
-        return await this.adminService.adminLogin(id, password);
+        return await this.adminService.adminLogin(id, password, deviceToken);
     }
 
     @Mutation(_ => SetStatusOutput)

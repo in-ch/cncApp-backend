@@ -31,6 +31,11 @@ import { Consult } from 'src/consults/entities/consult.entity';
     @Field(_ => String)
     name: string;
 
+    @Column({ nullable: true})
+    @IsString()
+    @Field(type => String, {nullable: true})
+    DeviceToken: string;
+
     @Column()
     @IsNumber()
     @Field(_ => Number)
