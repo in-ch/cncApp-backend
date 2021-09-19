@@ -84,12 +84,11 @@ export class RoomsService {
           birth:user.birth,
           phone:user.phone,
         });
-        // const a = await this.rooms.findOne(consultId);
+        const admin = await this.admins.findOne({});
         if(isAdmin){
           this.sendPush(user.DeviceToken);
-          // this.sendPush('eEPWakgeYEFCgVL0oKHC8C:APA91bFzkbLHzVFG_8WqBxDDhCJl1kelhVsiddxLquaFPauiPoKmJZ-HLMmCgcVAtMqNlSd3rEo4gl6jdxyUy0PHb7-6PUAZFnZxsPRttmCfEBROG8wbl4T199oWip0rgsgVOB_9dyL_');
         } else {
-          this.sendPushAdmin('c6ehYqHjQ2yc1POHLZ2_FL:APA91bGmk78jHoHu0p1iL9fdHDKBtClnd52XxLm6h76Vr9N2RDzgWNVNLFg_16m-PmF9rz2mjLo2MUxeTcIIquTBZZa3x34z71mO2CEi8b9p48VcC27RlhcbnwVh224E_h6ywIW18Xup');
+          this.sendPushAdmin(admin.DeviceToken);
         }
         
 
