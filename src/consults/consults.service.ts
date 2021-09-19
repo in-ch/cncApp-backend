@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Admin } from 'src/admin/entities/admin.entity';
+import { pushAdmin } from 'src/fcm/config';
 import { User } from 'src/users/entities/user.entity';
 import { Entity, Repository } from 'typeorm';
 import { RequestConsultInput } from './dto/request-consult.dto';
@@ -11,6 +13,7 @@ export class ConsultService {
   constructor(
     @InjectRepository(Consult) private readonly consults: Repository<Consult>,
     @InjectRepository(User) private readonly users: Repository<User>,
+    @InjectRepository(Admin) private readonly admins: Repository<Admin>,
   ) {}
 
   async requestConsult(requestConsultInput: RequestConsultInput, userNo: number): Promise<Consult> {
@@ -114,6 +117,11 @@ export class ConsultService {
       const Consult = await this.consults.findOne({no});
       Consult.status = status; 
       this.consults.save(Consult);
+
+      const admin = await this.admins.findOne({});
+      this.sendPushAdmin(admin.DeviceToken);
+      
+
       return {
         ok:true,
       }
@@ -241,4 +249,20 @@ export class ConsultService {
       }
     }
   }
+  sendPushAdmin = (fcmToken: string): boolean => {
+    const message = {
+      notification: {
+        title: '',
+        body: '새로운 상담 의뢰가 왔습니다.',
+      },
+      token: fcmToken,
+    };
+    pushAdmin
+      .messaging()
+      .send(message) // secondary => dev   push => prod
+      .catch((error) => {
+        console.log('🚨 error', JSON.stringify(error));
+      });
+    return true;
+  };
 }
