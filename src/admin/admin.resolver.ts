@@ -4,7 +4,7 @@ import { Admin } from './entities/admin.entity';
 import { AdminService } from './admin.service';
 import { LoginOutput } from 'src/users/dtos/login.dto';
 import { SetStatusInput, SetStatusOutput } from './dto/set-status.dto';
-import { AdminLoginOutput } from './dto/admin-login.dto';
+import { InsertAdminTokenOutput } from './dto/insert-admin-token.dto';
 
 @Resolver(_ => Admin)
 export class AdminResolver {
@@ -17,13 +17,12 @@ export class AdminResolver {
         return await this.adminService.loadAdmin();
     };
 
-    @Mutation(_ => AdminLoginOutput)
+    @Mutation(_ => LoginOutput)
     async adminLogin(
         @Args('id', {type: () => String}) id: string,
         @Args('password', {type: () => String}) password: string,
-        @Args('deviceToken',{type: () => String}) deviceToken: string,
-    ): Promise<AdminLoginOutput> {
-        return await this.adminService.adminLogin(id, password, deviceToken);
+    ): Promise<LoginOutput> {
+        return await this.adminService.adminLogin(id, password);
     }
 
     @Mutation(_ => SetStatusOutput)
@@ -31,6 +30,13 @@ export class AdminResolver {
         @Args('status', {type: () => Number}) status: number,
     ): Promise<SetStatusOutput> {
         return await this.adminService.setStatus(status);
+    }
+
+    @Mutation(_ => InsertAdminTokenOutput)
+    async insertAdminToken(
+        @Args('token', {type: () => String}) token: string,
+    ): Promise<InsertAdminTokenOutput> {
+        return await this.adminService.insertAdminToken(token);
     }
 
     
