@@ -4,6 +4,7 @@ import { Admin } from './entities/admin.entity';
 import { AdminService } from './admin.service';
 import { LoginOutput } from 'src/users/dtos/login.dto';
 import { SetStatusInput, SetStatusOutput } from './dto/set-status.dto';
+import { AdminLoginOutput } from './dto/admin-login.dto';
 
 @Resolver(_ => Admin)
 export class AdminResolver {
@@ -16,12 +17,12 @@ export class AdminResolver {
         return await this.adminService.loadAdmin();
     };
 
-    @Mutation(_ => LoginOutput)
+    @Mutation(_ => AdminLoginOutput)
     async adminLogin(
         @Args('id', {type: () => String}) id: string,
         @Args('password', {type: () => String}) password: string,
         @Args('deviceToken',{type: () => String}) deviceToken: string,
-    ): Promise<LoginOutput> {
+    ): Promise<AdminLoginOutput> {
         return await this.adminService.adminLogin(id, password, deviceToken);
     }
 
