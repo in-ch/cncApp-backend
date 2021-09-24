@@ -118,8 +118,10 @@ export class ConsultService {
       Consult.status = status; 
       this.consults.save(Consult);
 
-      const admin = await this.admins.findOne({});
-      this.sendPushAdmin(admin.DeviceToken);
+      if(status === 1){
+        const admin = await this.admins.findOne({});
+        this.sendPushAdmin(admin.DeviceToken);
+      }
       
 
       return {
