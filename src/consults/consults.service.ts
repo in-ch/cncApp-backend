@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from 'src/admin/entities/admin.entity';
 import { pushAdmin } from 'src/fcm/config';
 import { User } from 'src/users/entities/user.entity';
-import { Entity, Repository } from 'typeorm';
+import { Entity, Not, Repository } from 'typeorm';
 import { RequestConsultInput } from './dto/request-consult.dto';
 import { UpdateConsultInput } from './dto/update-consult.dto';
 import { Consult } from './entities/consult.entity';
@@ -139,7 +139,7 @@ export class ConsultService {
     try{
       const consult = await this.consults.findOne({
         where: {
-            no:consultNo 
+            no:consultNo,
         },
         order: {
           no: "DESC"
@@ -157,7 +157,8 @@ export class ConsultService {
         where: {
           user:{
             no:userNo
-          }
+          },
+          status:Not(4)
         },
         order: {
           status:"ASC",
